@@ -3,7 +3,7 @@ import datetime
 import board
 import adafruit_dht
 import json
-import time 
+import time as t
 
 dhtDevice = adafruit_dht.DHT11(board.D18)
 
@@ -17,27 +17,31 @@ while(True):
         temperature_c = dhtDevice.temperature
         temperature_f = temperature_c * (9 / 5) + 32
         humidity = dhtDevice.humidity
-        time = datetime.datetime.now()
+        #time = datetime.datetime.now()
 
         dht_data = {
             "temperature_c" : temperature_c,
             "temperature_f" : temperature_f,
-            "humidity" : humidity,
-            "time" : time
+            "humidity" : humidity#,
+            #"time" : time
         }
-
-        json_data = json.dumps(dht_data, indent = 4)
         
-        post = requests.post('http://127.0.0.1:3000/postdata', json = json_data)
-        print(post.text)
+
+        
+        #json = dht_data changes Content-Type in header to be
+        #application/json so that in the app.js file
+        #app.use(express.json()); can process the json file
+        #if this is changed, app.js will only receive empty brackets
+        post = requests.post('http://127.0.0.1:3000/postdata', json = dht_data)
+        print(dht_data)
 
 
     except RuntimeError as error:
         print(error.args[0])
-        time.sleep(2.0)
+        t.sleep(2.0)
         continue
     except Exception as error:
         dhtDevice.exit()
         raise error
     
-    time.sleep(2.0)
+    t.sleep(2.0)

@@ -4,13 +4,14 @@ var net = require('net');
 
 var app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+///replaced bodyParser with express
+///they do the same thing but bodyParser is deprecated
+app.use(express.json());
+///app.use(express.urlencoded({ extended: true}));
 
-var dataString = ''
 
 app.post("/postdata", (req, res) => {
-    var dataString = '0000';
+    var dataString = req.body;
     console.log(dataString);
 
     const tasHandler = () => {
