@@ -1,6 +1,6 @@
 var request = require('request')
 const SerialPort = require('serialport')
-const port = new SerialPort('/dev/ttyUSB0')
+const port = new SerialPort('/dev/ttyACM0')
 
 
 // Open errors will be emitted as an error event
