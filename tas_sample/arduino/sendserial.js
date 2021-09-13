@@ -8,19 +8,22 @@ port.on('error', function(err) {
     console.log('Error: ', err.message)
 })
 
-const newData
+var newData = 0
 
 // Switches the port into "flowing mode"
 port.on('data', function (data) {
-    console.log('Data:', data)
-    newData = data
+    ///console.log('Data:', data)
+    newData = data.toString()
+    newData = newData.replace(/\r?\n|\r/g, "") ///remove /r from string
+    newData = JSON.stringify(newData)
+    console.log(newData)
 })
 
 function send() {
     while(true) {
         request
             .post(
-                'http://127.0.0.1:50007/postdata',
+                'http://127.0.0.1:3000/postdata',
                 {json : {key : newData.toString()}},
                 function (error, response, body) {
                     if (!error && response.statusCode == 200) {
