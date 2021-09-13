@@ -12,8 +12,11 @@ var newData = 0
 
 // Switches the port into "flowing mode"
 port.on('data', function (data) {
-    console.log('Data:', data)
-    newData = data
+    ///console.log('Data:', data)
+    newData = data.toString()
+    newData = newData.replace(/\r?\n|\r/g, "") ///remove /r from string
+    newData = JSON.stringify(newData)
+    console.log(newData)
 })
 
 function send() {
