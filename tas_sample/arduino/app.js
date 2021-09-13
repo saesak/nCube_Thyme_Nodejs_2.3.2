@@ -1,17 +1,20 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 var net = require('net');
 
 var app = express();
 
 ///replaced bodyParser with express
 ///they do the same thing but bodyParser is deprecated
-app.use(express.json());
+///app.use(express.json());
+app.use(fileUpload());
 ///app.use(express.urlencoded({ extended: true}));
 
 
 app.post("/postdata", (req, res) => {
-    var dataString = req.body;
+    ///var dataString = req.body;
+    var dataString = req.files.file;
     console.log(dataString);
 
     const tasHandler = () => {

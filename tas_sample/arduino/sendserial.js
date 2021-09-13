@@ -1,6 +1,6 @@
 var request = require('request')
 const SerialPort = require('serialport')
-const port = new SerialPort('/dev/ttyUSB0')
+const port = new SerialPort('/dev/ttyACM0')
 
 
 // Open errors will be emitted as an error event
@@ -8,7 +8,7 @@ port.on('error', function(err) {
     console.log('Error: ', err.message)
 })
 
-const newData
+var newData = 0
 
 // Switches the port into "flowing mode"
 port.on('data', function (data) {
@@ -20,7 +20,7 @@ function send() {
     while(true) {
         request
             .post(
-                'http://127.0.0.1:50007/postdata',
+                'http://127.0.0.1:3000/postdata',
                 {json : {key : newData.toString()}},
                 function (error, response, body) {
                     if (!error && response.statusCode == 200) {

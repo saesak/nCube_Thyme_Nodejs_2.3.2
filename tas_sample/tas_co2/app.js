@@ -173,15 +173,15 @@ function tas_watchdog() {
         }
     }
     else if(tas_state == 'init_serial') {
-    	SerialPort = serialport.SerialPort;
     	
-        serialport.list(function (err, ports) {
+    	
+        /*serialport.list(function (err, ports) {
             ports.forEach(function (port) {
                 console.log(port.comName);
             });
-        });
+        });*/
 
-        myPort = new SerialPort(usecomport, {
+        myPort = new serialport(usecomport, {
             baudRate : parseInt(usebaudrate, 10),
             buffersize : 1
             //parser : serialport.parsers.readline("\r\n")
